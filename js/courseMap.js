@@ -13,6 +13,14 @@ import {mapClick} from './orbMap/mapClick.js';
 // make network global so it can be passed to stuff when needed. (can this be moved into `onLoadScript`?)
 var network = null;
 
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+
 
 /* this will run when the page is fully loaded. */
 function onLoadScript() {
@@ -25,6 +33,11 @@ function onLoadScript() {
     // just pass it to the mapClick function
     mapClick(properties);
   });
+
+  if(!inIframe()){
+      document.getElementById('forkRibbon').style.display = "";
+  }
+
 }
 
 
